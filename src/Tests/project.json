@@ -1,0 +1,26 @@
+﻿{
+  "version": "1.0.0-*",
+  "testRunner": "xunit",
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "version": "1.1.0",
+      "type": "platform"
+    },
+    "xunit": "2.1.0",
+    "xunit.runner.dnx": "2.1.0-rc1-build204",
+    "dotnet-test-xunit": "2.2.0-preview2-build1029",
+    "LivePerformance2": "1.0.0",
+    "System.Runtime": "4.3.0",
+    "Microsoft.DotNet.InternalAbstractions": "1.0.1-beta-003206",
+    "Microsoft.AspNetCore.Mvc.Core": "1.1.1"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": [
+        "dnxcore50",
+        "portable-net45+win8"
+      ]
+    }
+  }
+}

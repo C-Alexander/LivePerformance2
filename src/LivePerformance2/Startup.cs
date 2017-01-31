@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using LivePerformance2.Contexts;
+using LivePerformance2.Repositories;
+using LivePerformance2.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
@@ -37,6 +40,23 @@ namespace LivePerformance2
             services.AddApplicationInsightsTelemetry(Configuration);
 
             services.AddMvc();
+
+
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession(options =>
+            {
+                options.CookieName = "LivePerformance";
+                options.IdleTimeout = TimeSpan.FromDays(7);
+            });
+
+            services.AddTransient<IDatabaseService, DatabaseService>();
+            services.AddTransient<ILoginService, LoginService>();
+
+            services.AddTransient<IUserContext, UserSQLContext>();
+
+            services.AddTransient<IUserRepository, UserRepository>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -44,8 +64,6 @@ namespace LivePerformance2
         {
             loggerFactory.AddConsole(Configuration.GetSection("Logging"));
             loggerFactory.AddDebug();
-
-            app.UseApplicationInsightsRequestTelemetry();
 
             if (env.IsDevelopment())
             {
@@ -57,9 +75,9 @@ namespace LivePerformance2
                 app.UseExceptionHandler("/Home/Error");
             }
 
-            app.UseApplicationInsightsExceptionTelemetry();
-
             app.UseStaticFiles();
+
+            app.UseSession();
 
             app.UseMvc(routes =>
             {

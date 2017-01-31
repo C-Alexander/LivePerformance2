@@ -1,0 +1,25 @@
+﻿@model LivePerformance2.ViewModels.LoginViewModel
+
+@{
+    ViewBag.Title = "Login";
+    Layout = "_Layout";
+}
+<div class="form-container">
+    <form asp-controller="User" asp-action="Login" method="post" class="form-horizontal">
+        <h2 class="text-center"><strong>Login</strong></h2>
+        <div class="form-group">
+            <input asp-for="Username" class="form-control" placeholder="Username">
+            <span asp-validation-for="Username" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <input asp-for="Password" class="form-control" type="password" placeholder="Password">
+            <span asp-validation-for="Password" class="text-danger"></span>
+        </div>
+        <div class="form-group"></div>
+        <div class="form-group">
+            <button class="btn btn-primary btn-block" type="submit">Sign Up</button>
+        </div><a asp-controller="User" asp-action="Register" class="already">Or register here</a>
+    </form>
+</div>
+
+@{ await Html.RenderPartialAsync("_ValidationScriptsPartial"); }
